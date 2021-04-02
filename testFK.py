@@ -1,6 +1,5 @@
 import machine
 import time
-import math
 from OmniArm import *
 
 armInp = 500
@@ -13,17 +12,21 @@ arm1_ADC_temp = [0,0,0]                                      #=PCF8591(i2c_temp,
 arm1 = ARM(arm1_ADC_pose, arm1_ADC_temp)
 print("Checkpoint")
 
-baseMax = 1000
 baseMin = 1
-heightMax = 2000
-heightMin = 2
-horzMax = 3000
+baseMax = 1000
+vertMin = 2
+vertMax = 2000
 horzMin = 3
-armMax = 4000
+horzMax = 3000
 armMin = 4
-print("Checkpoint")
-#arm1.SetLimits(1, 2, 3, 4, 5, 6, 7,8)
-print("Checkpoint")
+armMax = 4000
+
+print("Checkpoint 1")
+
+arm1.SetLimits(baseMin, baseMax, vertMin, vertMax, horzMin, horzMax, armMin, armMax)
+
+print("Checkpoint 2")
+
 slewMin= 0
 slewMax= 2*math.pi
 heightMin= 0.2
@@ -32,7 +35,11 @@ jutMin= 0.1
 jutMax= 0.5
 swivelMin= 0
 swivelMax= 2*math.pi
-arm1.SetMapping(baseMax, baseMin, vertMax, heightMin, horzMax, horzMin, armMax, armMin)
+
+arm1.SetMapping(slewMin, slewMax, heightMin, heightMax, jutMin, jutMax, swivelMin, swivelMax)
+
+print(arm1.calibrate)
+print(arm1.mapping)
 
 
 
